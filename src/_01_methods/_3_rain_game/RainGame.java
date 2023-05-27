@@ -42,44 +42,69 @@ import processing.core.PImage;
  *    text("Score: " + score, 20, 20);
  */
 public class RainGame extends PApplet {
-    static final int WIDTH = 600;
-    static final int HEIGHT = 600;
+	static final int WIDTH = 600;
+	static final int HEIGHT = 600;
 
-    int score = 0;
-    int bucketWidth = 50;
-    int bucketHeight;
-    PImage bucket;
-    int y;
-    int x;
+	int score = 0;
+	int bucketWidth = 50;
+	int bucketHeight;
+	PImage bucket;
+	int y;
+	int x;
+	int randomNumber = (int)random(WIDTH);
 
-    // Sets the size of your canvas
-    @Override
-    public void settings() {
-        size(WIDTH, HEIGHT);
-    }
 
-    @Override
-    public void setup() {
+	// Sets the size of your canvas
+	@Override
+	public void settings() {
+		size(WIDTH, HEIGHT);
+	}
 
-    }
+	@Override
+	public void setup() {
+		bucket = loadImage("images/bucket.png");
+		bucket.resize(100, 100);
 
-    @Override
-    public void draw() {
+	}
 
-    }
+	@Override
+	public void draw() {
+		background(0,200,0);
 
-    static public void main(String[] args) {
-        PApplet.main(RainGame.class.getName());
-    }
-    
-    /*********************** DO NOT MODIFY THE CODE BELOW ********************/
+		fill(51, 255, 204);
+		ellipse(randomNumber,y,15,35);
+		y += 15;
 
-    void checkCatch(int x) {
-        if (x > mouseX && x < mouseX + bucketWidth) {
-            score++;
-        } else if (score > 0) {
-            score--;
-        }
-        println("Your score is now: " + score);
-    }
+		if(10+y >= HEIGHT) {
+			y = 0;
+			randomNumber = (int)random(WIDTH);
+		}
+
+		bucket.resize(bucketWidth, bucketHeight);
+		image(bucket, mouseX-24, 550);
+
+		if(y == 570) {
+			checkCatch(randomNumber);
+		}
+
+		fill(0, 0, 0);
+		textSize(16);
+		text("Score: " + score, 20, 20);
+
+	}
+
+	static public void main(String[] args) {
+		PApplet.main(RainGame.class.getName());
+	}
+
+	/*********************** DO NOT MODIFY THE CODE BELOW ********************/
+
+	void checkCatch(int x) {
+		if (x > mouseX-20 && x < mouseX-20 + bucketWidth) {
+			score++;
+		} else if (score > 0) {
+			score--;
+		}
+		println("Your score is now: " + score);
+	}
 }
