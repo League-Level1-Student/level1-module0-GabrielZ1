@@ -13,34 +13,39 @@ public class TooManyShapes {
 
 	public static void main(String[] args) {
 		//1. Ask the user how many sides they want their shape to be
-		
+		String numSidesString = JOptionPane.showInputDialog("How many sides do you want your shape to be?");
+		int numSides = Integer.parseInt(numSidesString);
 		//2. Ask the user how many shapes they want
-		
+		String numShapesString = JOptionPane.showInputDialog("How many shapes do you want?");
+		int numShapes = Integer.parseInt(numShapesString);
 		//3. Call canMakeShape() and save what is returned into a variable
-		
+		boolean canMakeShapes = canMakeShape(numSides);
 		//4. If the shape CAN be drawn
-		
+		if(canMakeShapes) {
 			//5. Call and save what is returned from calculateTurnAngle()
-		
+			int turnAngle = calculateTurnAngle(numSides);
+
 			//6. Use drawPolygons() to draw your shape
-		
+			drawPolygons(numSides, numShapes, turnAngle);
+		}
 		//7. If the shape CANNOT be drawn 
-			
+		else {
 			//8. Call notEnoughSides() and print out what is returned 
-		
+			JOptionPane.showMessageDialog(null, notEnoughSides());
+		}
 	}
-	
+
 	static int calculateTurnAngle(int numSides) {
 		int angle = 360/numSides;
 		return angle;
 	}
-	
+
 	static void drawPolygons(int numSides, int numShapes, int degrees) {
 		rob.setSpeed(100);
 		rob.penDown();
 		int dist = 25;
 		Random rand = new Random();
-		
+
 		for(int i = 0; i < numShapes; i++) {
 			int x = rand.nextInt(600);
 			int y = rand.nextInt(600);
@@ -50,22 +55,22 @@ public class TooManyShapes {
 			rob.setY(y);
 			rob.setAngle(angle);
 			rob.setRandomPenColor();
-			
+
 			for(int j = 0; j < numSides; j++) {
 				rob.move(dist);
 				rob.turn(degrees);
 			}
-	    }
+		}
 		rob.hide();
 	}
-	
+
 	static boolean canMakeShape(int numSides) {
 		if(numSides >= 3) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	static String notEnoughSides() {
 		return "I'm sorry we cannot make a shape with that many sides\n"
 				+ "Please enter a number greater than 2";
