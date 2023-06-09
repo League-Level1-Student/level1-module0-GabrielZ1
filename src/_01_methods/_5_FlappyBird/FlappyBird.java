@@ -13,7 +13,7 @@ public class FlappyBird extends PApplet {
 
 	int pipeX = 800;
 
-	int upperPipeHeight = (int) random(100, 400);
+	int upperPipeHeight = (int) random(0, 400);
 
 	int pipeWidth = 100;
 
@@ -64,7 +64,7 @@ public class FlappyBird extends PApplet {
 				pipeX = 700;
 				birdYVelocity = -10;
 
-				upperPipeHeight = (int) random(100, 400);
+				upperPipeHeight = (int) random(0, 400);
 				
 				
 				gameEnded = false;	
@@ -122,7 +122,7 @@ public class FlappyBird extends PApplet {
 	}
 
 	public void teleportPipes() {
-		upperPipeHeight = (int) random(100, 400);
+		upperPipeHeight = (int) random(0, 400);
 		pipeX = 800;
 
 	}
